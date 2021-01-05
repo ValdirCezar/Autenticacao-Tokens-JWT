@@ -17,7 +17,7 @@ public class ClienteDTO implements Serializable {
 	private String nome;
 
 	@NotEmpty(message = "Campo EMAIL é mandatório")
-	@Email
+	@Email(message = "Digite um e-mail válido!")
 	private String email;
 
 	@NotEmpty(message = "Campo SENHA é mandatório")

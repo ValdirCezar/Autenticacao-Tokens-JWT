@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.valdir.jwt.domain.Cliente;
+import com.valdir.jwt.dtos.ClienteDTO;
 import com.valdir.jwt.repositories.ClienteRepository;
 
 @Service
@@ -23,5 +24,11 @@ public class ClienteService {
 	public List<Cliente> findAll() {
 		return repository.findAll();
 	}
+	
+	public Cliente create(ClienteDTO objDTO) {
+		Cliente newObj = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getSenha());
+		return repository.save(newObj);
+	}
+	
 
 }
