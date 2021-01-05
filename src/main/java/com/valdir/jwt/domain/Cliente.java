@@ -1,19 +1,44 @@
 package com.valdir.jwt.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Cliente {
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import com.valdir.jwt.enums.Perfil;
+
+@Entity
+public class Cliente implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String email;
 	private String senha;
 
+	/**
+	 * O usuario pode ter perfil de admin e cliente
+	 * 
+	 */
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
 
 	public Cliente() {
 		super();
+
+		// Todo usuario já é instanciado com perfil de cliente
+		addPerfis(Perfil.CLIENTE);
 	}
 
 	public Cliente(Integer id, String nome, String email, String senha) {
@@ -22,6 +47,9 @@ public class Cliente {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
+
+		// Todo usuario já é instanciado com perfil de cliente
+		addPerfis(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -60,8 +88,12 @@ public class Cliente {
 		return perfis;
 	}
 
-	public void setPerfis(Set<Integer> perfis) {
-		this.perfis = perfis;
+	/**
+	 * Recebemos um Perfil e adicionamos ao set de Integers do usuario
+	 * 
+	 */
+	public void addPerfis(Perfil perfil) {
+		perfis.add(perfil.getCodigo());
 	}
 
 	@Override

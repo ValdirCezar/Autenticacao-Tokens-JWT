@@ -1,4 +1,4 @@
-package com.valdir.jwt;
+package com.valdir.jwt.enums;
 
 public enum Perfil {
 
