@@ -43,6 +43,11 @@ public class ClienteService {
 		obj.setEmail(objDTO.getEmail());
 		obj.setSenha(objDTO.getSenha());
 	}
+
+	public void delete(Integer id) {
+		this.findById(id);
+		repository.deleteById(id);
+	}
 	
 
 }

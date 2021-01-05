@@ -15,6 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.valdir.jwt.enums.Perfil;
 
 @Entity
@@ -33,10 +36,12 @@ public class Cliente implements Serializable {
 	 * O usuario pode ter perfil de admin e cliente
 	 * 
 	 */
+	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
 
+	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy = "cliente")
 	private List<Categoria> categorias = new ArrayList<>();
 
