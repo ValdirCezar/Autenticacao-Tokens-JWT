@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.valdir.jwt.domain.Categoria;
 import com.valdir.jwt.domain.Cliente;
 import com.valdir.jwt.domain.Produto;
+import com.valdir.jwt.enums.Perfil;
 import com.valdir.jwt.repositories.CategoriaRepository;
 import com.valdir.jwt.repositories.ClienteRepository;
 import com.valdir.jwt.repositories.ProdutoRepository;
@@ -28,6 +29,7 @@ public class DBService {
 		// -------- Cliente 1 ---------
 		
 		Cliente cli1 = new Cliente(null, "Valdir Cezar", "valdir@email.com", "123");
+		cli1.addPerfis(Perfil.ADMIN);
 		
 		Categoria cat1 = new Categoria(null, "Informática", cli1);
 		Categoria cat2 = new Categoria(null, "Escritório", cli1);
