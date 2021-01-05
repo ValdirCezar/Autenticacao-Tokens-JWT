@@ -1,7 +1,9 @@
 package com.valdir.jwt.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -11,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.valdir.jwt.enums.Perfil;
 
@@ -33,6 +36,9 @@ public class Cliente implements Serializable {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Categoria> categorias = new ArrayList<>();
 
 	public Cliente() {
 		super();
@@ -94,6 +100,14 @@ public class Cliente implements Serializable {
 	 */
 	public void addPerfis(Perfil perfil) {
 		perfis.add(perfil.getCodigo());
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
 	@Override
