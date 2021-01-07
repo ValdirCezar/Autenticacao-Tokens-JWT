@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.valdir.jwt.domain.Cliente;
@@ -14,21 +15,30 @@ import com.valdir.jwt.repositories.ClienteRepository;
 
 @Service
 public class ClienteService {
-	
+
+	/**
+	 * 
+	 * Injetando o @Bean BCryptPassowordEncoder para encodar a senha do usuárioDTO
+	 * antes de salvá-la na base de dados
+	 * 
+	 */
+	@Autowired
+	private BCryptPasswordEncoder pe;
+
 	@Autowired
 	private ClienteRepository repository;
-	
+
 	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.orElse(null);
 	}
-	
+
 	public List<Cliente> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Cliente create(ClienteDTO objDTO) {
-		Cliente newObj = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getSenha());
+		Cliente newObj = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), pe.encode(objDTO.getSenha()));
 		return repository.save(newObj);
 	}
 
@@ -48,6 +58,5 @@ public class ClienteService {
 		this.findById(id);
 		repository.deleteById(id);
 	}
-	
 
 }
