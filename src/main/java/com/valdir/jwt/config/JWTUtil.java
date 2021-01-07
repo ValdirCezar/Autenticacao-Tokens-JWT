@@ -24,8 +24,8 @@ public class JWTUtil {
 	 * atibuir a nossa variável secretkey, pois precisaremos dela para gerar um
 	 * token posteriormente
 	 */
-	@Value("${jwt.secretkey}")
-	private String secretkey;
+	@Value("${jwt.secret}")
+	private String secret;
 
 	/**
 	 * O macete abaixo irá pegar o valor de jwt.expiration em aplication.properties
@@ -52,7 +52,7 @@ public class JWTUtil {
 	 */
 	public String generateToken(String username) {
 		return Jwts.builder().setSubject(username).setExpiration(new Date(System.currentTimeMillis() + expiration))
-				.signWith(SignatureAlgorithm.HS512, this.secretkey.getBytes()).compact();
+				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
 	}
 
 }

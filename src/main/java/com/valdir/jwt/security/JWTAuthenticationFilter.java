@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,10 +27,8 @@ import com.valdir.jwt.dtos.CredenciaisDTO;
  */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@Autowired
 	private JWTUtil jwtUtil;
 
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
