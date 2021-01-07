@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.valdir.jwt.domain.Cliente;
 import com.valdir.jwt.repositories.ClienteRepository;
@@ -17,6 +18,7 @@ import com.valdir.jwt.security.UserSS;
  * interface UserDetail do SpringSecurity adotando as boas práticas
  * 
  */
+@Service
 public class UserDetailServieImpl implements UserDetailsService {
 
 	@Autowired

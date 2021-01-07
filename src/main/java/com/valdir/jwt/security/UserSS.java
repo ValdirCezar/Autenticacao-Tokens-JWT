@@ -28,7 +28,7 @@ public class UserSS implements UserDetails {
 		super();
 	}
 
-	public UserSS(Integer id, String email, String senha, Set<Perfil> authorities) {
+	public UserSS(Integer id, String email, String senha, Set<Perfil> perfis) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -40,7 +40,7 @@ public class UserSS implements UserDetails {
 		 * GrantedAuthority do SpringSecurity uma vez que nós pegamos a descrição do
 		 * perfil
 		 */
-		this.authorities = authorities.stream().map(obj -> new SimpleGrantedAuthority(obj.getDescricao())).collect(Collectors.toList());
+		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
 	}
 
 	public Integer getId() {
@@ -89,7 +89,7 @@ public class UserSS implements UserDetails {
 	@Override
 	public boolean isCredentialsNonExpired() {
 		/*** Por padrão vou retornar que a senha não está bloqueada ***/
-		return false;
+		return true;
 	}
 
 	/**

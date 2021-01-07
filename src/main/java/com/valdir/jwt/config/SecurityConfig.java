@@ -17,6 +17,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.valdir.jwt.security.JWTAuthenticationFilter;
+
 /**
  * 
  * Herdando da classe WebsecurityConfigureAdapter para aproveitar as vantagens
@@ -29,6 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private Environment env;
+	
+	@Autowired
+	private JWTUtil jwtUtil;
 
 	/**
 	 * 
@@ -86,6 +91,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll()
 				.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll().anyRequest().authenticated();
+		
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 
 		/*** Assegurando que a aplicação não vai criar sessão de usuário ***/
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
