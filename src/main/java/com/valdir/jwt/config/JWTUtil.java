@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -36,7 +37,7 @@ public class JWTUtil {
 	private Long expiration;
 
 	/**
-	 * O metodo abaixo irá gerar e retornar um novo token builder() é o metodo que
+	 * O metodo abaixo irá gerar e retornar um novo token e builder() é o metodo que
 	 * gera o token
 	 * 
 	 * setSubject() é o usuário que veio como argumento no método
@@ -53,6 +54,19 @@ public class JWTUtil {
 	public String generateToken(String username) {
 		return Jwts.builder().setSubject(username).setExpiration(new Date(System.currentTimeMillis() + expiration))
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
+	}
+
+	public boolean tokenValido(String token) {
+		
+		/*
+		 * O Claims é um tipo do JWT que armazena as reinvindicações do token
+		 */
+		Claims claims = getClaimsToken();
+	}
+
+	public String getUsername(String token) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

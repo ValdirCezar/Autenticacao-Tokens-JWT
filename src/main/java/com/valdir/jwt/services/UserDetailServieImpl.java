@@ -14,7 +14,7 @@ import com.valdir.jwt.security.UserSS;
  * 
  * A classe abaixo implementa a interface UserDetailsService do SpringSecurity
  * assim podemos sobreescrevber o metodo loadUserByUsername() com a nossa lógica
- * de negócio e retirnar um UserSS que também é uma classe que implementa a
+ * de negócio e retornar um UserSS que também é uma classe que implementa a
  * interface UserDetail do SpringSecurity adotando as boas práticas
  * 
  */
