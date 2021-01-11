@@ -72,7 +72,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			 * UsernamePasswordAuthenticationToken que é do Spring Security caso o token
 			 * seja válido, senão vai retornar nulo
 			 */
-			UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationManager(request,
+			UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationManager(
 					header.substring(7));
 
 			/*
@@ -90,7 +90,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		chain.doFilter(request, response);
 	}
 
-	private UsernamePasswordAuthenticationToken getAuthenticationManager(HttpServletRequest request, String token) {
+	private UsernamePasswordAuthenticationToken getAuthenticationManager(String token) {
 		/*
 		 * Se o token for válido o usuário está authorizado
 		 */
