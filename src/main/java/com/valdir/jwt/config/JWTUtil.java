@@ -57,15 +57,43 @@ public class JWTUtil {
 	}
 
 	public boolean tokenValido(String token) {
-		
+
 		/*
 		 * O Claims é um tipo do JWT que armazena as reinvindicações do token
 		 */
-		Claims claims = getClaimsToken();
+		Claims claims = getClaimsToken(token);
+		if (claims != null) {
+			String username = claims.getSubject();
+			Date expirationDate = claims.getExpiration();
+			Date now = new Date(System.currentTimeMillis());
+			/*
+			 * now.before(expirationDate) analiza se o momento atual é anterior a data de
+			 * expiração
+			 */
+			if (username != null && expirationDate != null && now.before(expirationDate)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/*
+	 * Essa é a função que recupera os claims apartir de um token. Caso o token seja
+	 * inválido o mesmo retorna nulo
+	 */
+	private Claims getClaimsToken(String token) {
+		try {
+			return Jwts.parser().setSigningKey(this.secret.getBytes()).parseClaimsJws(token).getBody();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public String getUsername(String token) {
-		// TODO Auto-generated method stub
+		Claims claims = getClaimsToken(token);
+		if (claims != null) {
+			return claims.getSubject();
+		}
 		return null;
 	}
 
